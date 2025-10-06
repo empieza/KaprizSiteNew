@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ohana Bot Family</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.6.4/css/flag-icons.min.css">
     <style>
         * {
             margin: 0;
@@ -14,7 +15,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #4a1c6d, #7b3fa3, #b57edc);
+            background: linear-gradient(135deg, #2d0a47, #4a1c6d, #2d0a47);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             color: white;
@@ -34,6 +35,46 @@
             padding: 2rem;
         }
         
+        /* Language Switcher */
+        .language-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .lang-btn {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(138, 43, 226, 0.5);
+            border-radius: 25px;
+            padding: 8px 15px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+        }
+        
+        .lang-btn:hover {
+            background: rgba(138, 43, 226, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+        }
+        
+        .lang-btn.active {
+            background: rgba(138, 43, 226, 0.9);
+            border-color: rgba(138, 43, 226, 0.8);
+        }
+        
+        .flag-icon {
+            font-size: 1.2em;
+        }
+        
         header {
             text-align: center;
             padding: 2rem 0;
@@ -44,16 +85,16 @@
             font-size: 4rem;
             font-weight: 900;
             color: #fff;
-            text-shadow: 0 0 15px rgba(255, 215, 255, 0.7);
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);
             margin-bottom: 1rem;
             animation: pulse 2s infinite;
             letter-spacing: 2px;
         }
         
         @keyframes pulse {
-            0% { transform: scale(1); text-shadow: 0 0 15px rgba(255, 215, 255, 0.7); }
-            50% { transform: scale(1.05); text-shadow: 0 0 25px rgba(255, 215, 255, 0.9); }
-            100% { transform: scale(1); text-shadow: 0 0 15px rgba(255, 215, 255, 0.7); }
+            0% { transform: scale(1); text-shadow: 0 0 20px rgba(138, 43, 226, 0.8); }
+            50% { transform: scale(1.05); text-shadow: 0 0 30px rgba(138, 43, 226, 1); }
+            100% { transform: scale(1); text-shadow: 0 0 20px rgba(138, 43, 226, 0.8); }
         }
         
         .title {
@@ -61,8 +102,8 @@
             margin-bottom: 2rem;
             position: relative;
             display: inline-block;
-            color: #f0d9ff;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            color: #d8b4fe;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
         
         .title::after {
@@ -73,7 +114,7 @@
             transform: translateX(-50%);
             width: 100px;
             height: 3px;
-            background: linear-gradient(90deg, transparent, #d8b4fe, transparent);
+            background: linear-gradient(90deg, transparent, #8a2be2, transparent);
             animation: expand 2s ease-in-out infinite alternate;
         }
         
@@ -91,16 +132,16 @@
         }
         
         .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
             border-radius: 15px;
             padding: 2rem;
             width: 300px;
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
             animation: float 6s ease-in-out infinite;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(138, 43, 226, 0.3);
         }
         
         .card:nth-child(2) {
@@ -113,14 +154,15 @@
         
         @keyframes float {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+            50% { transform: translateY(-15px); }
             100% { transform: translateY(0px); }
         }
         
         .card:hover {
             transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 35px rgba(138, 43, 226, 0.4);
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(138, 43, 226, 0.6);
         }
         
         .card h3 {
@@ -132,14 +174,14 @@
         .card p {
             line-height: 1.6;
             margin-bottom: 1.5rem;
-            color: #f3e8ff;
+            color: #d8b4fe;
         }
         
         .btn {
             display: inline-block;
-            padding: 0.8rem 1.5rem;
-            background: rgba(90, 40, 120, 0.7);
-            border: 2px solid #8a4fcc;
+            padding: 0.8rem 1.8rem;
+            background: linear-gradient(135deg, #6a0dad, #8a2be2);
+            border: 2px solid #9370db;
             border-radius: 30px;
             color: white;
             text-decoration: none;
@@ -147,13 +189,13 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
         }
         
         .btn:hover {
-            background: #6a2a9a;
-            color: white;
+            background: linear-gradient(135deg, #8a2be2, #6a0dad);
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(138, 79, 204, 0.5);
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.5);
         }
         
         .bot-animation {
@@ -166,36 +208,36 @@
         .bot-body {
             width: 100px;
             height: 100px;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(138, 43, 226, 0.9);
             border-radius: 20px;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             animation: botRotate 10s linear infinite;
-            box-shadow: 0 0 15px rgba(216, 180, 254, 0.7);
+            box-shadow: 0 0 25px rgba(138, 43, 226, 0.8);
         }
         
         .bot-head {
             width: 60px;
             height: 60px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(138, 43, 226, 0.95);
             border-radius: 50%;
             position: absolute;
             top: 10px;
             left: 50%;
             transform: translateX(-50%);
-            box-shadow: 0 0 10px rgba(216, 180, 254, 0.5);
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.7);
         }
         
         .bot-eye {
             width: 15px;
             height: 15px;
-            background: #7b3fa3;
+            background: #ffffff;
             border-radius: 50%;
             position: absolute;
             top: 20px;
-            box-shadow: 0 0 5px rgba(123, 63, 163, 0.7);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
         
         .bot-eye.left {
@@ -226,16 +268,17 @@
         }
         
         .feature {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1.5rem;
-            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 1.8rem;
+            border-radius: 12px;
             width: 250px;
             text-align: center;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(138, 43, 226, 0.3);
             cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
         }
         
         .feature::before {
@@ -245,7 +288,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.2), transparent);
             transition: left 0.5s;
         }
         
@@ -254,61 +297,68 @@
         }
         
         .feature:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(138, 43, 226, 0.4);
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(138, 43, 226, 0.6);
         }
         
         .feature i {
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 1rem;
-            color: #d8b4fe;
+            color: #8a2be2;
+            text-shadow: 0 0 15px rgba(138, 43, 226, 0.7);
         }
         
         .feature h3 {
             color: #e9d5ff;
             margin-bottom: 0.5rem;
+            font-size: 1.3rem;
         }
         
         .feature p {
-            color: #f3e8ff;
+            color: #d8b4fe;
+            font-size: 0.95rem;
         }
         
         footer {
             text-align: center;
-            padding: 2rem 0;
-            margin-top: 3rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 3rem 0 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(138, 43, 226, 0.3);
         }
         
         footer p {
-            color: #e9d5ff;
+            color: #d8b4fe;
+            font-size: 0.9rem;
         }
         
         .social-icons {
             display: flex;
             justify-content: center;
             gap: 1rem;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
         
         .social-icon {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.4);
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
-            color: #e9d5ff;
+            color: #d8b4fe;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            text-decoration: none;
         }
         
         .social-icon:hover {
-            background: #d8b4fe;
-            color: #4a1c6d;
+            background: #8a2be2;
+            color: #000;
             transform: translateY(-5px);
-            box-shadow: 0 5px 10px rgba(216, 180, 254, 0.3);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.5);
         }
         
         .particles {
@@ -323,9 +373,9 @@
         
         .particle {
             position: absolute;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(138, 43, 226, 0.4);
             border-radius: 50%;
-            animation: floatParticle 15s infinite linear;
+            animation: floatParticle 20s infinite linear;
         }
         
         @keyframes floatParticle {
@@ -334,10 +384,10 @@
                 opacity: 0;
             }
             10% {
-                opacity: 1;
+                opacity: 0.7;
             }
             90% {
-                opacity: 1;
+                opacity: 0.7;
             }
             100% {
                 transform: translateY(-100px) rotate(360deg);
@@ -358,16 +408,47 @@
                 width: 100%;
                 max-width: 400px;
             }
+            
+            .features {
+                gap: 1rem;
+            }
+            
+            .feature {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .language-switcher {
+                top: 10px;
+                right: 10px;
+            }
+            
+            .lang-btn {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="particles" id="particles"></div>
     
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <button class="lang-btn active" data-lang="ru">
+            <span class="fi fi-ru"></span>
+            RU
+        </button>
+        <button class="lang-btn" data-lang="en">
+            <span class="fi fi-us"></span>
+            EN
+        </button>
+    </div>
+    
     <div class="container">
         <header>
-            <div class="logo">KAPRV</div>
-            <h1 class="title">ohana_bot_family</h1>
+            <div class="logo">KAPRIZ</div>
+            <h1 class="title" data-ru="FAMILY & OHANA" data-en="FAMILY & OHANA">FAMILY & OHANA</h1>
             <div class="bot-animation">
                 <div class="bot-head">
                     <div class="bot-eye left"></div>
@@ -379,21 +460,30 @@
         
         <div class="content">
             <div class="card">
-                <h3>Our Mission</h3>
-                <p>Creating innovative bot solutions that bring people together, just like a family. Ohana means family, and family means nobody gets left behind.</p>
-                <a href="#" class="btn">Learn More</a>
+                <h3 data-ru="Наша Миссия" data-en="Our Mission">Наша Миссия</h3>
+                <p data-ru="Создание дружелюбной и приятной атмосферы между сокланами и не только." 
+                   data-en="Creating a friendly and pleasant atmosphere between clan members and beyond.">
+                   Создание дружелюбной и приятной атмосферы между сокланами и не только.
+                </p>
+                <a href="#" class="btn" data-ru="О Нас" data-en="About Us">О Нас</a>
             </div>
             
             <div class="card">
-                <h3>Our Bots</h3>
-                <p>Discover our diverse family of bots, each designed with unique capabilities to assist, entertain, and connect people across the digital world.</p>
-                <a href="#" class="btn">Meet the Bots</a>
+                <h3 data-ru="Наши Предложения" data-en="Our Offers">Наши Предложения</h3>
+                <p data-ru="Мы предоставляем хорошее общение, лучшие цены на UC, и не только." 
+                   data-en="We provide great communication, best UC prices, and much more.">
+                   Мы предоставляем хорошее общение, лучшие цены на UC, и не только.
+                </p>
+                <a href="#" class="btn" data-ru="Связаться" data-en="Contact Us">Связаться</a>
             </div>
             
             <div class="card">
-                <h3>Join Us</h3>
-                <p>Become part of our growing community. Contribute, collaborate, and help us build the next generation of helpful bots.</p>
-                <a href="https://t.me/kapriz_family" target="_blank" class="btn">Get Involved</a>
+                <h3 data-ru="Присоединяйся" data-en="Join Us">Присоединяйся</h3>
+                <p data-ru="Хочешь найти друзей или просто поиграть? Заходи к нам, найди друзей, а может и больше." 
+                   data-en="Want to find friends or just play? Come join us, find friends, and maybe more.">
+                   Хочешь найти друзей или просто поиграть? Заходи к нам, найди друзей, а может и больше.
+                </p>
+                <a href="https://t.me/kapriz_family" target="_blank" class="btn" data-ru="Присоединиться" data-en="Join Now">Присоединиться</a>
             </div>
         </div>
         
@@ -401,59 +491,108 @@
             <div class="feature" onclick="window.open('https://t.me/emp1eza', '_blank')">
                 <i class="fas fa-code"></i>
                 <h3>@emp1eza</h3>
-                <p>bot developer</p>
+                <p data-ru="разработчик бота и сайта" data-en="bot & site developer">разработчик бота и сайта</p>
             </div>
             
             <div class="feature" onclick="window.open('https://t.me/Kidala_tt', '_blank')">
                 <i class="fas fa-crown"></i>
                 <h3>@Kidala_tt</h3>
-                <p>лучшая лидерша</p>
-            </div>
-            
-            <div class="feature" onclick="window.open('https://t.me/emp1eza', '_blank')">
-                <i class="fas fa-robot"></i>
-                <h3>@emp1eza</h3>
-                <p>bot developer</p>
-            </div>
-            
-            <div class="feature" onclick="window.open('https://t.me/Kidala_tt', '_blank')">
-                <i class="fas fa-star"></i>
-                <h3>@Kidala_tt</h3>
-                <p>лучшая лидерша</p>
+                <p data-ru="лучшая лидерша" data-en="best leader">лучшая лидерша</p>
             </div>
         </div>
         
         <footer>
-            <p>© 2023 Ohana Bot Family. All rights reserved.</p>
+            <p data-ru="© 2025 KAPRIZ clan. Все права защищены." 
+               data-en="© 2025 KAPRIZ clan. All rights reserved.">
+               © 2025 KAPRIZ clan. Все права защищены.
+            </p>
             <div class="social-icons">
-                <div class="social-icon"><i class="fab fa-discord"></i></div>
-                <div class="social-icon"><i class="fab fa-twitter"></i></div>
-                <div class="social-icon"><i class="fab fa-github"></i></div>
-                <div class="social-icon"><i class="fab fa-telegram"></i></div>
+                <a href="https://t.me/endcodingg" target="_blank" class="social-icon">
+                    <i class="fab fa-telegram"></i>
+                </a>
+                <a href="https://github.com/empieza" target="_blank" class="social-icon">
+                    <i class="fab fa-github"></i>
+                </a>
             </div>
         </footer>
     </div>
 
     <script>
-        // Create floating particles
+        // Language switching functionality
         document.addEventListener('DOMContentLoaded', function() {
+            const langButtons = document.querySelectorAll('.lang-btn');
+            let currentLang = 'ru';
+            
+            // Load saved language from localStorage
+            const savedLang = localStorage.getItem('preferredLang');
+            if (savedLang) {
+                currentLang = savedLang;
+                updateActiveButton();
+                switchLanguage(currentLang);
+            }
+            
+            langButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    if (lang !== currentLang) {
+                        currentLang = lang;
+                        updateActiveButton();
+                        switchLanguage(lang);
+                        // Save preference
+                        localStorage.setItem('preferredLang', lang);
+                    }
+                });
+            });
+            
+            function updateActiveButton() {
+                langButtons.forEach(btn => {
+                    if (btn.getAttribute('data-lang') === currentLang) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            }
+            
+            function switchLanguage(lang) {
+                // Update all elements with data attributes
+                const elements = document.querySelectorAll('[data-ru], [data-en]');
+                elements.forEach(element => {
+                    const text = element.getAttribute(`data-${lang}`);
+                    if (text) {
+                        if (element.tagName === 'A' && element.classList.contains('btn')) {
+                            element.textContent = text;
+                        } else {
+                            element.textContent = text;
+                        }
+                    }
+                });
+                
+                // Update page title
+                document.title = lang === 'ru' ? 'KAPRIZ Family' : 'KAPRIZ Family';
+                
+                // Update html lang attribute
+                document.documentElement.lang = lang;
+            }
+            
+            // Create floating particles
             const particlesContainer = document.getElementById('particles');
-            const particleCount = 30;
+            const particleCount = 25;
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
                 
-                // Random size between 3px and 8px
-                const size = Math.random() * 5 + 3;
+                // Random size between 2px and 6px
+                const size = Math.random() * 4 + 2;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 
                 // Random position
                 particle.style.left = `${Math.random() * 100}%`;
                 
-                // Random animation duration between 10s and 20s
-                const duration = Math.random() * 10 + 15;
+                // Random animation duration between 15s and 25s
+                const duration = Math.random() * 10 + 20;
                 particle.style.animationDuration = `${duration}s`;
                 
                 // Random delay
